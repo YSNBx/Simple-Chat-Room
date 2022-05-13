@@ -1,6 +1,5 @@
 package server;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,11 +15,7 @@ public class Server {
         try {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
-                DataInputStream input = new DataInputStream(socket.getInputStream());
-
-                String name = input.readUTF();
-                System.out.println("A new client (" + name + ") has connected!");
-                
+                System.out.println("A new client has connected!");
                 ClientHandler clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
