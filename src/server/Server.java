@@ -1,5 +1,6 @@
 package server;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,8 +15,12 @@ public class Server {
     public void startServer() {
         try {
             while (!serverSocket.isClosed()) {
+                System.out.println("Chat server started!");
                 Socket socket = serverSocket.accept();
-                System.out.println("A new client has connected!");
+                DataInputStream input = new DataInputStream(socket.getInputStream());
+
+                String username = input.readUTF();
+                System.out.println("New client entered the room: " + username);
                 ClientHandler clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
