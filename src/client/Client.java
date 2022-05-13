@@ -1,5 +1,6 @@
 package client;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -23,8 +24,6 @@ public class Client {
 
     public void sendMessage() {
         try {
-            dataOutputStream.writeUTF(this.username);
-
             Scanner scanner = new Scanner(System.in);
 
             while (socket.isConnected()) {
@@ -78,7 +77,11 @@ public class Client {
         System.out.println("Enter username: ");
         String username = scanner.nextLine();
 
+        //Reads names on 2 lines, needs fixing
         Socket socket = new Socket("127.0.0.1", 6565);
+        DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+        output.writeUTF(username);
+
         Client client = new Client(socket, username);
         client.listenForMessages();
         client.sendMessage();
