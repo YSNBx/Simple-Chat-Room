@@ -17,8 +17,10 @@ public class Server {
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
                 DataInputStream input = new DataInputStream(socket.getInputStream());
+
                 String name = input.readUTF();
                 System.out.println("A new client (" + name + ") has connected!");
+                
                 ClientHandler clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);

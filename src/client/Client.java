@@ -84,6 +84,7 @@ public class Client {
         Socket socket = new Socket("127.0.0.1", 6565);
         DataOutputStream output = new DataOutputStream(socket.getOutputStream());
         output.writeUTF(username);
+        
         Client client = new Client(socket, username);
         client.listenForMessages();
         client.sendMessage();
