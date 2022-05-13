@@ -13,14 +13,14 @@ public class Server {
     }
 
     public void startServer() {
+        System.out.println("Server started!");
         try {
             while (!serverSocket.isClosed()) {
-                System.out.println("Chat server started!");
                 Socket socket = serverSocket.accept();
                 DataInputStream input = new DataInputStream(socket.getInputStream());
-
-                String username = input.readUTF();
-                System.out.println("New client entered the room: " + username);
+                
+                System.out.println("A new client has connected!" + input.readUTF());
+                
                 ClientHandler clientHandler = new ClientHandler(socket);
 
                 Thread thread = new Thread(clientHandler);
